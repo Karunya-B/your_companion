@@ -8,8 +8,8 @@ from app.db.session import engine
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
-    title="Karunya Companion",
-    description="A personal AI mentor, companion, and life orchestrator for Karunya.",
+    title="Your Companion",
+    description="A personal AI mentor, companion, and life orchestrator.",
     version="1.0.0"
 )
 

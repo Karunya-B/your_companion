@@ -102,6 +102,9 @@ async def chat_interaction(chat_req: schemas.ChatRequest, db: DbDep, user_id: Us
         # -- Build rich user state from the database --
         user_state = {}
         
+        # User info
+        user_state["user_name"] = user.name if user else "User"
+        
         # Memory / profile
         if user and user.memory:
             user_state["memory"] = {

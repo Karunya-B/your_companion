@@ -3,7 +3,7 @@ from app.services.llm import get_llm_response
 
 def analyze_reflection(reflection_text: str, current_memory: dict) -> dict:
     """Uses the LLM to analyze the daily reflection and extract memory updates and feedback."""
-    system_prompt = """You are Karunya Companion, a supportive personal AI mentor.
+    system_prompt = """You are a supportive personal AI mentor.
 Your job is to read the user's daily reflection and provide two things:
 1. 'feedback': A short, empathetic, supportive response acknowledging their effort and feelings. It should not be a task list, just a thoughtful friend.
 2. 'memory_updates': If the reflection reveals any new information about their focus duration preferences, burnout triggers, learning rhythms, or stress patterns, extract them. If nothing new, return empty strings for those fields.

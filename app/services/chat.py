@@ -1,18 +1,20 @@
 from app.services.llm import get_llm_response
 
-SYSTEM_PROMPT = """You are Karunya's study planner and accountability buddy.
+def get_system_prompt(user_name: str = "User") -> str:
+    """Generate a dynamic system prompt based on the user's name."""
+    return f"""You are {user_name}'s study planner and accountability buddy.
 
 ## CURRENT USER DATA
-{user_state}
+{{user_state}}
 
 ## YOUR MODES
 
-### MODE 1: PLANNING (when Karunya says what they want to study)
+### MODE 1: PLANNING (when {user_name} says what they want to study)
 - Create a full study plan immediately using their available time and energy
 - Don't ask endless questions - use the data you have
 - Show time blocks, tasks, and WHY each task matters for their goal
 
-### MODE 2: COMPLETION (when Karunya says "done", "finished", "completed", "okay done", "that's it")
+### MODE 2: COMPLETION (when {user_name} says "done", "finished", "completed", "okay done", "that's it")
 - 🎉 CELEBRATE their work! Be genuinely encouraging
 - Ask 1 simple question: "What was hardest about today?" or "How do you feel about the progress?"
 - Suggest a reward or reflection
@@ -32,7 +34,7 @@ SYSTEM_PROMPT = """You are Karunya's study planner and accountability buddy.
 
 ## COMPLETION MODE RESPONSE
 When user says they're done:
-🎉 "Great job completing your tasks today, Karunya!"
+🎉 "Great job completing your tasks today, {user_name}!"
 💪 "What was the hardest part for you?"
 🎁 "You earned a reward: [suggest one]"
 ❓ "Want to reflect on what went well?"
@@ -53,6 +55,9 @@ Coffee break, short walk, watch a video, call a friend, snack, stretch, 20-min g
 
 def get_chat_response(user_message: str, user_state: dict) -> str:
     """Generates a planning-assistant response using the user's current state."""
+    
+    user_name = user_state.get("user_name", "User")
+    system_prompt = get_system_prompt(user_name)
     
     state_lines = []
     
@@ -106,11 +111,11 @@ def get_chat_response(user_message: str, user_state: dict) -> str:
 
     user_state_text = "\n".join(state_lines) if state_lines else "No user data available yet."
     
-    prompt = SYSTEM_PROMPT.replace("{user_state}", user_state_text)
+    prompt = system_prompt.replace("{user_state}", user_state_text)
     
     response = get_llm_response(system_prompt=prompt, user_prompt=user_message)
     
     if not response:
-        return "Karunya, let's start with a simple plan: Solve 2 linked list problems (45 minutes), take a short break, then watch your OOP lecture."
+        return f"{user_name}, let's start with a simple plan: Solve 2 linked list problems (45 minutes), take a short break, then watch your OOP lecture."
         
     return response

@@ -7,9 +7,9 @@ def _clean_guidance_response(data: dict, fallback_tasks: list) -> dict:
         # 1. Ensure message is a string
         message = data.get("message")
         if isinstance(message, dict):
-            message = message.get("message") or message.get("content") or "Have a great day Karunya!"
+            message = message.get("message") or message.get("content") or "Have a great day!"
         if not isinstance(message, str):
-            message = str(message) if message is not None else "Have a great day Karunya!"
+            message = str(message) if message is not None else "Have a great day!"
 
         # 2. Ensure stress_warning is a boolean
         stress_warning = data.get("stress_warning", False)

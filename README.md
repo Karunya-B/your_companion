@@ -1,4 +1,4 @@
-# Karunya Companion - Deployment Guide
+# Your Companion - Deployment Guide
 
 A personal AI mentor and life orchestrator built with FastAPI and React.
 

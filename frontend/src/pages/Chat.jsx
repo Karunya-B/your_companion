@@ -20,13 +20,13 @@ function Chat() {
                 } else {
                     // Default greeting if no history
                     setMessages([
-                        { role: "ai", text: "Good morning Karunya! What are you curious about exploring today?" }
+                        { role: "ai", text: "Good morning! What are you curious about exploring today?" }
                     ]);
                 }
             } catch (error) {
                 console.error("Failed to load chat history:", error);
                 setMessages([
-                    { role: "ai", text: "Good morning Karunya! What are you curious about exploring today?" }
+                    { role: "ai", text: "Good morning! What are you curious about exploring today?" }
                 ]);
             }
         };
