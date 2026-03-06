@@ -1,4 +1,7 @@
-const BASE_URL = import.meta.env.VITE_API_URL;
+const BASE_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000/api/v1";
+
+// Debug: Log the API URL being used
+console.log("API Base URL:", BASE_URL);
 
 export async function fetchDailyGuidance() {
   const res = await fetch(`${BASE_URL}/generate_daily_guidance`);
@@ -7,13 +10,21 @@ export async function fetchDailyGuidance() {
 }
 
 export async function sendChatMessage(message) {
-  const res = await fetch(`${BASE_URL}/chat`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ message }),
-  });
-  if (!res.ok) throw new Error("Failed to send chat message");
-  return res.json();
+  try {
+    const res = await fetch(`${BASE_URL}/chat`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message }),
+    });
+    if (!res.ok) {
+      console.error("Chat API Error:", res.status, res.statusText);
+      throw new Error(`Failed to send chat message: ${res.status} ${res.statusText}`);
+    }
+    return res.json();
+  } catch (error) {
+    console.error("Chat API Error:", error);
+    throw error;
+  }
 }
 
 export async function getChatHistory() {
