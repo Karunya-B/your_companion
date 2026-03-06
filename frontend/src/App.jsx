@@ -38,7 +38,7 @@ function App() {
         <div className="app-layout">
             <aside className="sidebar">
                 <div className="sidebar-brand">
-                    <h1>Karunya Companion</h1>
+                    <h1>Your Companion</h1>
                     <span>AI Mentor Dashboard</span>
                 </div>
                 <ul className="sidebar-nav">
